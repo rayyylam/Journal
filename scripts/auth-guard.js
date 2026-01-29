@@ -8,7 +8,7 @@
 
     if (!session) {
         // 未登录，重定向到登录页
-        window.location.href = '/auth.html';
+        window.location.href = 'auth.html';
         return;
     }
 
@@ -19,7 +19,7 @@
     window.supabaseClient.auth.onAuthStateChange((event, session) => {
         if (event === 'SIGNED_OUT') {
             // 用户登出，跳转到登录页
-            window.location.href = '/auth.html';
+            window.location.href = 'auth.html';
         } else if (event === 'TOKEN_REFRESHED') {
             // Token 刷新，更新用户信息
             window.currentUser = session?.user;
@@ -36,7 +36,7 @@ async function logout() {
         if (error) throw error;
 
         // 跳转到登录页
-        window.location.href = '/auth.html';
+        window.location.href = 'auth.html';
     } catch (error) {
         console.error('登出失败：', error);
         alert('登出失败，请重试');

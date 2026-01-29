@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const { data: { session } } = await window.supabaseClient.auth.getSession();
     if (session) {
         // 已登录，跳转到主页
-        window.location.href = '/index.html';
+        window.location.href = 'index.html';
         return;
     }
 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // 延迟跳转，让用户看到成功消息
             setTimeout(() => {
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
             }, 500);
 
         } catch (error) {
