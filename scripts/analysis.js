@@ -3,6 +3,27 @@ const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', 
 const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
 const WUXING_LIST = ['木', '火', '土', '金', '水'];
 
+// 确保 waitForSupabase 函数存在（回退实现）
+if (!window.waitForSupabase) {
+  window.waitForSupabase = function () {
+    return new Promise((resolve) => {
+      if (window.supabaseClient) {
+        resolve();
+      } else {
+        // 轮询检查，最多等待 5 秒
+        let attempts = 0;
+        const checkInterval = setInterval(() => {
+          attempts++;
+          if (window.supabaseClient || attempts > 50) {
+            clearInterval(checkInterval);
+            resolve();
+          }
+        }, 100);
+      }
+    });
+  };
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   const monthInput = document.getElementById('month-input');
   const analyzeBtn = document.getElementById('analyze-btn');

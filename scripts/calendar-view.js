@@ -3,6 +3,28 @@ let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth(); // 0-11
 let allRecords = {}; // 存储所有记录，key 为日期字符串
 
+// 确保 waitForSupabase 函数存在（回退实现）
+if (!window.waitForSupabase) {
+    window.waitForSupabase = function () {
+        return new Promise((resolve) => {
+            if (window.supabaseClient) {
+                resolve();
+            } else {
+                // 轮询检查，最多等待 5 秒
+                let attempts = 0;
+                const checkInterval = setInterval(() => {
+                    attempts++;
+                    if (window.supabaseClient || attempts > 50) {
+                        clearInterval(checkInterval);
+                        resolve();
+                    }
+                }, 100);
+            }
+        });
+    };
+}
+
+
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', async function () {
     // 等待 Supabase 客户端就绪
