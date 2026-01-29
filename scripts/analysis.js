@@ -31,6 +31,14 @@ async function analyzeMonth() {
   showResults('<div class="loading">正在分析...</div>');
 
   try {
+    // 等待 Supabase 客户端就绪
+    await window.waitForSupabase();
+
+    // 检查客户端是否存在
+    if (!window.supabaseClient) {
+      throw new Error('数据库连接未就绪，请刷新页面重试');
+    }
+
     // 计算月份的开始和结束日期
     const [year, month] = selectedMonth.split('-').map(Number);
     const startDate = `${year}-${String(month).padStart(2, '0')}-01`;

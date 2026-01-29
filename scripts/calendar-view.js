@@ -5,6 +5,9 @@ let allRecords = {}; // 存储所有记录，key 为日期字符串
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', async function () {
+    // 等待 Supabase 客户端就绪
+    await window.waitForSupabase();
+
     // 初始化事件监听
     document.getElementById('prev-month').addEventListener('click', () => changeMonth(-1));
     document.getElementById('next-month').addEventListener('click', () => changeMonth(1));
