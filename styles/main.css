@@ -720,9 +720,7 @@ body {
 @media (max-width: 768px) {
   /* 已由全局 .container 和 body 样式控制 */
 
-  .pillars-container {
-    /* 保持 gap:0 */
-  }
+
 
   .gan,
   .zhi {
@@ -755,9 +753,7 @@ body {
     font-size: 20px;
   }
 
-  .pillars-container {
-    /* gap: 20px; 移除 */
-  }
+
 
   .gan,
   .zhi {
