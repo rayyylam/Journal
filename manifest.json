@@ -4,8 +4,8 @@
   "description": "记录每日元素与运势的个人日记应用",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FCF5F8",
-  "theme_color": "#C0527A",
+  "background_color": "#2E4E3F",
+  "theme_color": "#2E4E3F",
   "orientation": "portrait",
   "icons": [
     {
