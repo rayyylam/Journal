@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="记录每日八字与运势的个人日记应用">
+    <meta name="theme-color" content="#C0527A">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <title>决疑助手 - 八字日记</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部导航 -->
+        <header class="header">
+            <h1>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                </svg>
+                八字日记
+            </h1>
+            <nav>
+                <a href="index.html" class="nav-link">记录</a>
+                <a href="calendar.html" class="nav-link">日历</a>
+                <a href="analysis.html" class="nav-link">统计</a>
+                <a href="divination.html" class="nav-link active">决疑</a>
+            </nav>
+        </header>
+
+        <!-- 算卦应用 -->
+        <div id="divination-app" v-cloak>
+            <div class="divination-tip" :class="{ visible: showTip }">
+                请默念你想知道答案的问题<br>并按下开始键
+            </div>
+
+            <div class="divination-main" :class="{ visible: showMainContent }">
+                <div class="divination-btn-wrap">
+                    <button class="divination-start-btn" @click="startByTime" :disabled="isAnimating">
+                        {{ isAnimating ? '推算中...' : '请指引' }}
+                    </button>
+                </div>
+
+                <div class="divination-grid">
+                    <div v-for="item in gridList" :key="item.key" class="divination-cell"
+                        :class="{ active: activeKey === item.key }">
+                        {{ item.label }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 结果弹窗 -->
+            <div class="divination-modal-mask" v-if="showResult" @click="closeResult">
+                <div class="divination-modal-card" @click.stop>
+                    <div class="divination-result-big">{{ finalResult?.label }}</div>
+                    <div class="divination-result-summary">{{ finalResult?.summary }}</div>
+                    <div class="divination-result-advice">{{ finalResult?.advice }}</div>
+                    <div class="divination-date-info">{{ logInfo }}</div>
+
+                    <div class="divination-modal-actions">
+                        <button class="divination-close-btn" @click="closeResult">知晓了</button>
+                        <button class="divination-zhuiwen-btn" @click="openNumModal">想追问</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数字输入弹窗 -->
+            <div class="divination-modal-mask" v-if="showNumInput" @click="showNumInput = false">
+                <div class="divination-modal-card" @click.stop>
+                    <div class="divination-result-summary">数字起卦</div>
+                    <div style="font-size: 14px; color:#888;">请输入3组数字（1-99）</div>
+
+                    <div class="divination-num-input-wrap">
+                        <div class="divination-num-box">
+                            <input type="number" v-model="nums.n1" placeholder="1" min="1"
+                                oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="divination-num-box">
+                            <input type="number" v-model="nums.n2" placeholder="1" min="1"
+                                oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                        <div class="divination-num-box">
+                            <input type="number" v-model="nums.n3" placeholder="1" min="1"
+                                oninput="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                    </div>
+
+                    <button class="divination-random-btn" @click="fillRandomNumbers">🎲 没灵感？随机生成</button>
+
+                    <div class="divination-modal-actions">
+                        <button class="divination-close-btn" @click="showNumInput = false">取消</button>
+                        <button class="divination-zhuiwen-btn" @click="startByNumber">开始推算</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 警告弹窗 -->
+            <div class="divination-modal-mask" v-if="showWarning" @click="showWarning = false">
+                <div class="divination-modal-card" @click.stop>
+                    <div class="divination-warning-title">时机不宜</div>
+                    <div class="divination-warning-text">子日、子时不宜算卦<br>请待吉时再来</div>
+                    <div class="divination-date-info">{{ logInfo }}</div>
+                    <button class="divination-close-btn" @click="showWarning = false">谨记</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- 引入 lunar-javascript 库 (与其他页面版本一致) -->
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
+    <!-- 引入算卦脚本 -->
+    <script src="scripts/divination.js"></script>
+</body>
+
+</html>

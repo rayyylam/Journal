@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="记录每日八字与运势的个人日记应用">
+    <meta name="theme-color" content="#C0527A">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <title>运势统计 - 八字日记</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <line x1="12" y1="20" x2="12" y2="10" />
+                    <line x1="18" y1="20" x2="18" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="16" />
+                </svg>
+                运势统计
+            </h1>
+            <nav>
+                <a href="index.html" class="nav-link">记录</a>
+                <a href="calendar.html" class="nav-link">日历</a>
+                <a href="analysis.html" class="nav-link active">统计</a>
+                <a href="divination.html" class="nav-link">决疑</a>
+            </nav>
+        </header>
+
+        <!-- 月份选择 -->
+        <section class="month-selector">
+            <label for="month-input">选择月份：</label>
+            <input type="month" id="month-input" value="2026-01">
+            <button id="analyze-btn" class="analyze-btn">分析</button>
+        </section>
+
+        <!-- 统计结果展示 -->
+        <section id="analysis-results" class="analysis-results">
+            <div class="loading">请选择月份并点击"分析"</div>
+        </section>
+    </div>
+
+    <!-- 引入 Supabase 客户端 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 引入 lunar-javascript 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
+    <!-- 引入项目脚本 -->
+    <script src="scripts/supabase.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/analysis.js"></script>
+</body>
+
+</html>

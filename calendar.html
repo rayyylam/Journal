@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="记录每日八字与运势的个人日记应用">
+    <meta name="theme-color" content="#C0527A">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <title>日历查看 - 八字日记</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/calendar.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>
+                <svg class="icon" viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                日历查看
+            </h1>
+            <nav>
+                <a href="index.html" class="nav-link">记录</a>
+                <a href="calendar.html" class="nav-link active">日历</a>
+                <a href="analysis.html" class="nav-link">统计</a>
+                <a href="divination.html" class="nav-link">决疑</a>
+            </nav>
+        </header>
+
+        <!-- 月份选择和导航 -->
+        <section class="calendar-nav">
+            <button id="prev-month" class="month-nav-btn">◀</button>
+            <h2 id="current-month">2026年1月</h2>
+            <button id="next-month" class="month-nav-btn">▶</button>
+        </section>
+
+        <!-- 日历网格 -->
+        <section class="calendar-grid-section">
+            <div class="weekday-headers">
+                <div class="weekday-header">日</div>
+                <div class="weekday-header">一</div>
+                <div class="weekday-header">二</div>
+                <div class="weekday-header">三</div>
+                <div class="weekday-header">四</div>
+                <div class="weekday-header">五</div>
+                <div class="weekday-header">六</div>
+            </div>
+            <div id="calendar-grid" class="calendar-grid">
+                <!-- 日历格子将由 JavaScript 动态生成 -->
+            </div>
+        </section>
+
+        <!-- 选中日期的详细信息 -->
+        <section id="date-detail" class="date-detail" style="display: none;">
+            <div class="detail-header">
+                <h3 id="detail-date">2026年1月28日</h3>
+                <button id="close-detail" class="close-btn">✕</button>
+            </div>
+
+            <!-- 八字展示 -->
+            <div class="bazi-display-small">
+                <h4>八字</h4>
+                <div class="pillars-container-small">
+                    <div class="pillar-small">
+                        <div class="pillar-label">年柱</div>
+                        <div class="pillar-chars-small">
+                            <span id="detail-year-gan" class="gan-small">甲</span>
+                            <span id="detail-year-zhi" class="zhi-small">子</span>
+                        </div>
+                    </div>
+                    <div class="pillar-small">
+                        <div class="pillar-label">月柱</div>
+                        <div class="pillar-chars-small">
+                            <span id="detail-month-gan" class="gan-small">乙</span>
+                            <span id="detail-month-zhi" class="zhi-small">丑</span>
+                        </div>
+                    </div>
+                    <div class="pillar-small">
+                        <div class="pillar-label">日柱</div>
+                        <div class="pillar-chars-small">
+                            <span id="detail-day-gan" class="gan-small">丙</span>
+                            <span id="detail-day-zhi" class="zhi-small">寅</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 运势信息 -->
+            <div class="fortune-display">
+                <h4>运势记录</h4>
+                <div id="fortune-info" class="fortune-info">
+                    <p class="no-record">暂无记录</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 引入 Supabase 客户端 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 引入 lunar-javascript 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
+    <!-- 引入项目脚本 -->
+    <script src="scripts/supabase.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/calendar-view.js"></script>
+</body>
+
+</html>

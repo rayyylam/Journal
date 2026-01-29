@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="记录每日八字与运势的个人日记应用">
+  <meta name="theme-color" content="#C0527A">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <title>八字日记</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <header class="header">
+      <h1>
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        八字日记
+      </h1>
+      <nav>
+        <a href="index.html" class="nav-link active">记录</a>
+        <a href="calendar.html" class="nav-link">日历</a>
+        <a href="analysis.html" class="nav-link">统计</a>
+        <a href="divination.html" class="nav-link">决疑</a>
+      </nav>
+    </header>
+
+    <!-- 今日八字展示 -->
+    <section class="bazi-display">
+      <h2>今日八字</h2>
+      <div class="pillars-container">
+        <div class="pillar">
+          <div class="pillar-label">年柱</div>
+          <div class="pillar-chars">
+            <span id="year-gan" class="gan">甲</span>
+            <span id="year-zhi" class="zhi">子</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-label">月柱</div>
+          <div class="pillar-chars">
+            <span id="month-gan" class="gan">乙</span>
+            <span id="month-zhi" class="zhi">丑</span>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-label">日柱</div>
+          <div class="pillar-chars">
+            <span id="day-gan" class="gan">丙</span>
+            <span id="day-zhi" class="zhi">寅</span>
+          </div>
+        </div>
+      </div>
+      <div id="current-date" class="current-date">2026年1月28日</div>
+    </section>
+
+    <!-- 运势记录 -->
+    <section class="fortune-record">
+      <h2>今日运势</h2>
+      <div class="fortune-selector">
+        <label class="fortune-option" data-value="吉">
+          <input type="radio" name="fortune" value="吉">
+          <span class="fortune-label">
+            <svg class="fortune-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 13s1.5 2 4 2 4-2 4-2" />
+            </svg>
+            吉
+          </span>
+        </label>
+        <label class="fortune-option" data-value="平">
+          <input type="radio" name="fortune" value="平">
+          <span class="fortune-label">
+            <svg class="fortune-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+            平
+          </span>
+        </label>
+        <label class="fortune-option" data-value="凶">
+          <input type="radio" name="fortune" value="凶">
+          <span class="fortune-label">
+            <svg class="fortune-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M16 14s-1.5-2-4-2-4 2-4 2" />
+            </svg>
+            凶
+          </span>
+        </label>
+      </div>
+
+      <div class="mood-input">
+        <label for="mood-note">心情记录</label>
+        <textarea id="mood-note" placeholder="写下今天的心情和感悟..." maxlength="800" rows="6"></textarea>
+        <div class="char-count">
+          <span id="char-count">0</span> / 800
+        </div>
+      </div>
+
+      <button id="save-btn" class="save-btn">保存记录</button>
+      <div id="message" class="message"></div>
+    </section>
+  </div>
+
+  <!-- 引入 Supabase 客户端 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- 引入 lunar-javascript 库 -->
+  <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
+  <!-- 引入项目脚本 -->
+  <script src="scripts/supabase.js"></script>
+  <script src="scripts/calendar.js"></script>
+  <script src="scripts/journal.js"></script>
+  <!-- 注册 Service Worker -->
+  <script src="scripts/sw-register.js"></script>
+</body>
+
+</html>

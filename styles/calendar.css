@@ -1,0 +1,365 @@
+/* 继承 main.css 的设计变量 */
+
+/* 日历导航 */
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.calendar-nav h2 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.month-nav-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-nav-btn:hover {
+    background: #BE185D;
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+/* 日历网格区域 */
+.calendar-grid-section {
+    padding: 20px 30px;
+}
+
+.weekday-headers {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.weekday-header {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    position: relative;
+    padding: 8px;
+}
+
+.calendar-day:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+    cursor: default;
+}
+
+.calendar-day.other-month:hover {
+    border-color: #e0e0e0;
+    transform: none;
+    box-shadow: none;
+}
+
+.calendar-day.today {
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, rgba(219, 39, 119, 0.1) 0%, rgba(244, 114, 182, 0.1) 100%);
+}
+
+.calendar-day.has-record {
+    border-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.day-number {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.day-pillar {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    gap: 2px;
+}
+
+.fortune-indicator {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.fortune-indicator.ji {
+    background: #4CAF50;
+}
+
+.fortune-indicator.ping {
+    background: #FFC107;
+}
+
+.fortune-indicator.xiong {
+    background: #F44336;
+}
+
+/* 日期详情 */
+.date-detail {
+    padding: 30px;
+    background: #f8f9fa;
+    border-top: 2px solid #e0e0e0;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.detail-header h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+
+.close-btn {
+    background: #e0e0e0;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.close-btn:hover {
+    background: #d0d0d0;
+    transform: rotate(90deg);
+}
+
+/* 小八字展示 */
+.bazi-display-small {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.bazi-display-small h4 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.pillars-container-small {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.pillar-small {
+    text-align: center;
+}
+
+.pillar-chars-small {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.gan-small,
+.zhi-small {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 运势展示 */
+.fortune-display {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.fortune-display h4 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.fortune-info {
+    line-height: 1.8;
+}
+
+.fortune-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.fortune-badge.ji {
+    background: #d4edda;
+    color: #155724;
+}
+
+.fortune-badge.ping {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.fortune-badge.xiong {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.mood-text {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    margin-top: 10px;
+}
+
+.no-record {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .calendar-nav {
+        padding: 15px 20px;
+    }
+
+    .calendar-nav h2 {
+        font-size: 18px;
+    }
+
+    .calendar-grid-section {
+        padding: 10px;
+    }
+
+    .weekday-headers {
+        gap: 2px;
+    }
+
+    .calendar-grid {
+        gap: 2px;
+        /* 极小间距确保7列显示 */
+    }
+
+    .calendar-day {
+        padding: 2px;
+        /* 极小内边距 */
+        border: none;
+        /* 移除边框节省空间 */
+        border-radius: 4px;
+        background: #f8f8f8;
+    }
+
+    .calendar-day:hover {
+        background: #e8e8e8;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .calendar-day.today {
+        border: 1px solid var(--color-primary);
+        /* 今天保留细边框 */
+        background: rgba(219, 39, 119, 0.1);
+    }
+
+    .calendar-day.has-record {
+        background: rgba(76, 175, 80, 0.1);
+    }
+
+    .day-number {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .day-pillar {
+        font-size: 9px;
+        gap: 1px;
+    }
+
+    .fortune-indicator {
+        width: 5px;
+        height: 5px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .date-detail {
+        padding: 20px;
+    }
+
+    .pillars-container-small {
+        gap: 20px;
+    }
+
+    .gan-small,
+    .zhi-small {
+        font-size: 20px;
+    }
+}

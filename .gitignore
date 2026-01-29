@@ -1,0 +1,8 @@
+.DS_Store
+.vscode/
+.idea/
+*.log
+node_modules/
+temp-feature/
+design-options.html
+design-preview.html

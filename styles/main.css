@@ -1,0 +1,1113 @@
+/* ===== 字体导入 ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap');
+
+/* ===== 设计系统变量 ===== */
+:root {
+  --color-primary: #C0527A;
+  /* 柔和玫瑰粉 - 主色 (原 #DB2777) */
+  --color-secondary: #E685B5;
+  /* 也是柔和色系 (原 #F472B6) */
+  --color-accent: #B47B16;
+  /* 稍微暗一点的金色 (原 #CA8A04) */
+  --color-background: #FCF5F8;
+  /* 更加灰一度的淡粉背景 (原 #FDF2F8) */
+  --color-surface: #FFFFFF;
+  /* 白色表面 */
+  --color-text: #831843;
+  /* 深玫瑰 - 主文字 (保持，因为需要对比度) */
+  --color-text-muted: #9F1239;
+  /* 次要文字 */
+  --color-text-light: #BE185D;
+  /* 浅文字 */
+  --color-border: #F0D4E1;
+  /* 更柔和的边框 (原 #FBCFE8) */
+
+  --font-heading: 'Noto Serif SC', 'Noto Serif TC', serif;
+  --font-body: 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+
+  --shadow-sm: 0 1px 2px 0 rgba(131, 24, 67, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(131, 24, 67, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(131, 24, 67, 0.1);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* 通用图标样式 */
+  --icon-stroke-width: 1.5px;
+
+  --transition: 200ms ease;
+}
+
+/* ===== 全局样式 ===== */
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: var(--icon-stroke-width);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fortune-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin: 0 auto 4px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: var(--icon-stroke-width);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-background);
+  min-height: 100vh;
+  padding: 20px;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* ===== 头部导航 ===== */
+.header {
+  background: var(--color-primary);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.header h1 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.header nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+/* ===== 八字展示 ===== */
+.bazi-display {
+  padding: 25px 20px;
+  /* 减小内边距 */
+  background: linear-gradient(135deg, var(--color-background) 0%, #FCE7F3 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bazi-display h2 {
+  font-family: var(--font-heading);
+  text-align: center;
+  font-size: 18px;
+  /* 稍微减小标题字号 */
+  margin-bottom: 20px;
+  /* 减小标题下间距 */
+  color: var(--color-text-muted);
+  letter-spacing: 4px;
+}
+
+.pillars-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  /* 减小柱子间距 */
+  margin-bottom: 15px;
+  /* 减小底部间距 */
+}
+
+.pillar {
+  text-align: center;
+  position: relative;
+  /* 为分割线定位 */
+}
+
+/* 极简分割线 */
+.pillar:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  /* 调整到 40px gap 的正中间 */
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(192, 82, 122, 0.2), transparent);
+  /* 使用淡主色 */
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+  .pillars-container {
+    gap: 25px;
+    /* 进一步减小移动端间距 */
+  }
+
+  .pillar:not(:last-child)::after {
+    right: -10px;
+    /* 与桌面端保持一致,居中于25px间距 */
+  }
+
+  .gan,
+  .zhi {
+    font-size: 32px;
+    /* 移动端字号减小 */
+    width: 44px;
+    height: 44px;
+  }
+
+  .bazi-display {
+    padding: 20px 15px;
+    /* 进一步减小移动端内边距 */
+  }
+
+  .bazi-display h2 {
+    margin-bottom: 15px;
+    /* 紧凑标题 */
+    font-size: 16px;
+  }
+
+  .current-date {
+    margin-top: 15px;
+    /* 紧凑日期 */
+    font-size: 13px;
+  }
+}
+
+.pillar-label {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 8px;
+  /* 减小标签间距 */
+  letter-spacing: 2px;
+}
+
+.pillar-chars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* 增加天干地支间距 */
+}
+
+.gan,
+.zhi {
+  font-family: var(--font-heading);
+  font-size: 38px;
+  /* 全局字号减小 */
+  font-weight: bold;
+  /* color inherit/custom handled by JS or default inheritance */
+  color: var(--color-primary);
+  width: 52px;
+  /* 减小占位宽度 */
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 移除卡片样式 */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: all var(--transition);
+  cursor: default;
+}
+
+.gan:hover,
+.zhi:hover {
+  transform: scale(1.15);
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.current-date {
+  text-align: center;
+  font-size: 15px;
+  color: #999;
+  margin-top: 20px;
+  /* 减小间距 */
+  font-weight: 500;
+  font-family: var(--font-heading);
+  letter-spacing: 2px;
+}
+
+/* ===== 运势记录 ===== */
+.fortune-record {
+  padding: 30px;
+}
+
+.fortune-record h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: var(--color-text-muted);
+}
+
+.fortune-selector {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.fortune-option {
+  flex: 1;
+  max-width: 150px;
+  cursor: pointer;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  text-align: center;
+  transition: all var(--transition);
+  background: white;
+}
+
+.fortune-option:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fortune-option.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: white;
+}
+
+.fortune-option input[type="radio"] {
+  display: none;
+}
+
+.fortune-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.fortune-option.selected .fortune-label {
+  color: white;
+}
+
+/* ===== 心情输入 ===== */
+.mood-input {
+  margin-bottom: 20px;
+}
+
+.mood-input label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: 500;
+}
+
+.mood-input textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color var(--transition);
+}
+
+.mood-input textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.1);
+}
+
+.char-count {
+  text-align: right;
+  font-size: 13px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* ===== 按钮样式 ===== */
+.save-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.save-btn:hover {
+  background: #BE185D;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.save-btn:active {
+  transform: translateY(0);
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== 消息提示 ===== */
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  display: none;
+}
+
+.message-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message-info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* ===== 统计分析页面 ===== */
+.month-selector {
+  padding: 20px 30px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.month-selector label {
+  font-size: 16px;
+  color: #555;
+  font-weight: 500;
+}
+
+#month-input {
+  padding: 10px 15px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color var(--transition);
+  min-width: 150px;
+}
+
+#month-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.analyze-btn {
+  padding: 10px 30px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.analyze-btn:hover {
+  background: #BE185D;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== 分析结果 ===== */
+.analysis-results {
+  padding: 30px;
+}
+
+.loading,
+.no-data,
+.error {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.error {
+  color: #F44336;
+}
+
+.analysis-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.total-records {
+  text-align: center;
+  color: #888;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.stat-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.stat-section h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-text-muted);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.fortune-distribution {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.fortune-item {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  min-width: 0;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.fortune-emoji {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.fortune-name {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.fortune-count {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.pillar-list,
+.stat-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pillar-tag,
+.stat-tag {
+  display: inline-block;
+  padding: 8px 15px;
+  background: white;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.no-data-text {
+  color: #999;
+  font-style: italic;
+}
+
+.insight-section {
+  margin-top: 30px;
+  padding: 25px;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border-left: 4px solid var(--color-accent);
+}
+
+.insight-section h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-text);
+  margin-bottom: 15px;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.insight-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.copy-box {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap;
+  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+}
+
+.copy-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.copy-btn:hover {
+  background: #BE185D;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+.copy-hint {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    border-radius: 15px;
+  }
+
+  .header {
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  /* 移动端导航栏优化 */
+  .header nav {
+    gap: 8px;
+    /* 减小链接间距 */
+  }
+
+  .nav-link {
+    font-size: 14px;
+    /* 缩小字体 */
+    padding: 6px 12px;
+    /* 减小内边距 */
+    white-space: nowrap;
+    /* 防止文字换行 */
+  }
+
+  .pillars-container {
+    gap: 25px;
+  }
+
+  .gan,
+  .zhi {
+    font-size: 30px;
+  }
+
+  .fortune-selector {
+    /* 保持并列显示，允许换行但不强制垂直 */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .fortune-option {
+    /* 缩小宽度以适应并列 */
+    max-width: none;
+    /* 移除最大宽度限制 */
+    flex: 1 1 30%;
+    /* 允许缩小，大约占 1/3 */
+    padding: 10px;
+    /* 减小内边距 */
+  }
+
+  .fortune-label {
+    font-size: 14px;
+    /* 稍微减小字体 */
+  }
+
+  .fortune-icon {
+    width: 32px;
+    /* 减小图标 */
+    height: 32px;
+  }
+
+  .fortune-distribution {
+    /* 移动端改为两列 Grid */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .fortune-ji {
+    grid-column: 1 / -1;
+    /* 吉独占一行 (跨越所有列) */
+  }
+
+  .fortune-item {
+    min-width: 0;
+    padding: 15px;
+    /* 减小内边距 */
+  }
+
+  .month-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #month-input {
+    width: 100%;
+  }
+
+  .analyze-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .pillars-container {
+    gap: 20px;
+  }
+
+  .gan,
+  .zhi {
+    font-size: 28px;
+  }
+
+  .pillar-label {
+    font-size: 13px;
+  }
+}
+
+/* ==================== 算卦页面样式 ==================== */
+
+/* Vue 挂载前隐藏内容，防止 FOUC */
+[v-cloak] {
+  display: none !important;
+}
+
+/* 顶部提示文字 */
+.divination-tip {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-text);
+  margin-top: 60px;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.5s ease-out;
+  font-family: var(--font-heading);
+}
+
+.divination-tip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 主区域容器 */
+.divination-main {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  padding: 30px;
+}
+
+.divination-main.visible {
+  opacity: 1;
+}
+
+/* 按钮容器 */
+.divination-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* 开始按钮 */
+.divination-start-btn {
+  font-size: 18px;
+  padding: 14px 48px;
+  border: none;
+  border-radius: 50px;
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.1s;
+  font-weight: 600;
+}
+
+.divination-start-btn:active {
+  transform: scale(0.96);
+}
+
+.divination-start-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.divination-start-btn:hover:not(:disabled) {
+  background: #BE185D;
+  transform: translateY(-2px);
+}
+
+/* 六宫格布局 */
+.divination-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 100px);
+  gap: 12px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.divination-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-border);
+  color: #555;
+  font-size: 20px;
+  transition: all 0.1s;
+  font-family: var(--font-heading);
+}
+
+.divination-cell.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(192, 82, 122, 0.5);
+  transform: scale(1.02);
+}
+
+/* 通用弹窗遮罩 */
+.divination-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(3px);
+}
+
+/* 弹窗卡片 */
+.divination-modal-card {
+  background: white;
+  width: 85%;
+  max-width: 360px;
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: divinationPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes divinationPopIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 结果弹窗专用样式 */
+.divination-result-big {
+  font-size: 42px;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+  letter-spacing: 4px;
+  font-family: var(--font-heading);
+}
+
+.divination-result-summary {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+  font-family: var(--font-heading);
+}
+
+.divination-result-advice {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  padding-top: 16px;
+  border-top: 1px dashed #ddd;
+  margin-bottom: 24px;
+  white-space: pre-wrap;
+}
+
+.divination-date-info {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 20px;
+  font-family: var(--font-heading);
+}
+
+/* 弹窗按钮组 */
+.divination-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* 关闭按钮 */
+.divination-close-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 8px 24px;
+  border-radius: 20px;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.divination-close-btn:hover {
+  border-color: #666;
+  color: #666;
+}
+
+/* 追问按钮 */
+.divination-zhuiwen-btn {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(192, 82, 122, 0.3);
+  transition: all 0.2s;
+}
+
+.divination-zhuiwen-btn:hover {
+  background: #BE185D;
+  border-color: #BE185D;
+}
+
+/* 数字输入弹窗专用 */
+.divination-num-input-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.divination-num-box {
+  width: 30%;
+  text-align: center;
+}
+
+.divination-num-box input {
+  width: 100%;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  border: 2px solid var(--color-border);
+  background: #faf8f2;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.divination-num-box input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(192, 82, 122, 0.1);
+}
+
+.divination-random-btn {
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--color-primary);
+  background: none;
+  border: 1px dashed var(--color-primary);
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.divination-random-btn:hover {
+  background: rgba(192, 82, 122, 0.05);
+}
+
+/* 警告弹窗专用 */
+.divination-warning-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+}
+
+.divination-warning-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+/* 响应式 - 算卦页面 */
+@media (max-width: 768px) {
+  .divination-tip {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+
+  .divination-main {
+    padding: 20px;
+  }
+
+  .divination-grid {
+    grid-template-rows: repeat(2, 80px);
+    gap: 10px;
+  }
+
+  .divination-cell {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .divination-tip {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .divination-result-big {
+    font-size: 36px;
+  }
+
+  .divination-modal-card {
+    width: 90%;
+    padding: 24px 16px;
+  }
+}
