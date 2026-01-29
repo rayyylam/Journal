@@ -100,8 +100,16 @@ async function saveRecord() {
     saveBtn.textContent = '保存中...';
 
     try {
+        // 获取当前用户
+        const { data: { user } } = await window.supabaseClient.auth.getUser();
+
+        if (!user) {
+            throw new Error('用户未登录');
+        }
+
         const recordData = {
             date: window.currentDate,
+            user_id: user.id,  // 添加 user_id
             year_pillar: window.currentBazi.year.full,
             month_pillar: window.currentBazi.month.full,
             day_pillar: window.currentBazi.day.full,
@@ -113,7 +121,7 @@ async function saveRecord() {
         const { data, error } = await window.supabaseClient
             .from('journal_entries')
             .upsert(recordData, {
-                onConflict: 'date',
+                onConflict: 'date,user_id',  // 更新冲突检测
                 returning: 'minimal'
             });
 

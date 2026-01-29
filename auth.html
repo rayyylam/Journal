@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="元素日记 - 用户登录">
+    <meta name="theme-color" content="#2E4E3F">
+    <title>登录 - 元素日记</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/auth.css">
+</head>
+
+<body class="auth-body">
+    <div class="auth-container">
+        <!-- Logo 和标题 -->
+        <div class="auth-header">
+            <svg class="auth-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            </svg>
+            <h1>元素日记</h1>
+            <p class="auth-subtitle">记录每日元素与运势</p>
+        </div>
+
+        <!-- 登录表单 -->
+        <div class="auth-card" id="login-card">
+            <h2>登录</h2>
+
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">邮箱</label>
+                    <input type="email" id="login-email" name="email" required autocomplete="email"
+                        placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">密码</label>
+                    <input type="password" id="login-password" name="password" required autocomplete="current-password"
+                        placeholder="••••••••">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="login-btn">
+                        <span class="btn-text">登录</span>
+                        <span class="btn-loading" style="display: none;">登录中...</span>
+                    </button>
+                </div>
+
+                <div class="form-message" id="login-message"></div>
+            </form>
+
+            <div class="auth-footer">
+                <p>还没有账号？请联系管理员邀请</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 Supabase 客户端 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- 引入项目脚本 -->
+    <script src="scripts/supabase.js"></script>
+    <script src="scripts/auth.js"></script>
+</body>
+
+</html>

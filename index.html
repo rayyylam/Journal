@@ -28,6 +28,7 @@
         <a href="calendar.html" class="nav-link">日历</a>
         <a href="analysis.html" class="nav-link">统计</a>
         <a href="divination.html" class="nav-link">决疑</a>
+        <button onclick="logout()" class="nav-link" style="background: none; border: none; cursor: pointer;">登出</button>
       </nav>
     </header>
 
@@ -115,6 +116,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
   <!-- 引入项目脚本 -->
   <script src="scripts/supabase.js"></script>
+  <script src="scripts/auth-guard.js"></script>
   <script src="scripts/calendar.js"></script>
   <script src="scripts/journal.js"></script>
   <!-- 注册 Service Worker -->
