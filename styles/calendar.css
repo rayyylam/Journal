@@ -6,18 +6,23 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
+    background: var(--color-cream-bg);
+    /* 米色背景 */
+    border-bottom: 1px solid var(--color-border);
 }
 
 .calendar-nav h2 {
     font-size: 20px;
-    color: #333;
+    color: var(--color-primary);
+    /* 深绿 */
     margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
 }
 
 .month-nav-btn {
-    background: var(--color-primary);
+    background: var(--color-secondary);
+    /* 金色按钮 */
     color: white;
     border: none;
     border-radius: var(--radius-sm);
@@ -32,7 +37,7 @@
 }
 
 .month-nav-btn:hover {
-    background: #BE185D;
+    background: #C5A470;
     transform: scale(1.1);
     box-shadow: var(--shadow-md);
 }
@@ -40,6 +45,7 @@
 /* 日历网格区域 */
 .calendar-grid-section {
     padding: 20px 30px;
+    background: white;
 }
 
 .weekday-headers {
@@ -52,9 +58,11 @@
 .weekday-header {
     text-align: center;
     font-weight: 600;
-    color: #666;
+    color: var(--color-text-muted);
+    /* 深褐 */
     padding: 10px 0;
     font-size: 14px;
+    font-family: var(--font-heading);
 }
 
 .calendar-grid {
@@ -65,7 +73,7 @@
 
 .calendar-day {
     aspect-ratio: 1;
-    border: 2px solid #e0e0e0;
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -79,7 +87,7 @@
 }
 
 .calendar-day:hover {
-    border-color: var(--color-primary);
+    border-color: var(--color-gold);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -87,29 +95,32 @@
 .calendar-day.other-month {
     opacity: 0.3;
     cursor: default;
+    background: #F9F9F9;
 }
 
 .calendar-day.other-month:hover {
-    border-color: #e0e0e0;
+    border-color: var(--color-border);
     transform: none;
     box-shadow: none;
 }
 
 .calendar-day.today {
     border-color: var(--color-primary);
-    background: linear-gradient(135deg, rgba(219, 39, 119, 0.1) 0%, rgba(244, 114, 182, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(46, 78, 63, 0.05) 0%, rgba(46, 78, 63, 0.1) 100%);
 }
 
+/* 有记录的日子 - 用金色/绿色点缀 */
 .calendar-day.has-record {
-    border-color: #4CAF50;
-    background: rgba(76, 175, 80, 0.05);
+    border-color: var(--color-gold);
+    background: rgba(197, 164, 112, 0.1);
 }
 
 .day-number {
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: var(--color-text);
     margin-bottom: 4px;
+    font-family: var(--font-heading);
 }
 
 .day-pillar {
@@ -117,34 +128,37 @@
     font-weight: 500;
     display: flex;
     gap: 2px;
+    color: #888;
 }
 
 .fortune-indicator {
     position: absolute;
     top: 6px;
     right: 6px;
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
 }
 
 .fortune-indicator.ji {
     background: #4CAF50;
+    /* 保持绿色或者用更深一点的 */
 }
 
 .fortune-indicator.ping {
-    background: #FFC107;
+    background: var(--color-gold);
 }
 
 .fortune-indicator.xiong {
-    background: #F44336;
+    background: #A1887F;
+    /* 褐色 */
 }
 
 /* 日期详情 */
 .date-detail {
     padding: 30px;
-    background: #f8f9fa;
-    border-top: 2px solid #e0e0e0;
+    background: var(--color-surface);
+    border-top: 2px solid var(--color-border);
     animation: slideUp 0.3s ease;
 }
 
@@ -169,12 +183,13 @@
 
 .detail-header h3 {
     font-size: 20px;
-    color: #333;
+    color: var(--color-primary);
     margin: 0;
+    font-family: var(--font-heading);
 }
 
 .close-btn {
-    background: #e0e0e0;
+    background: #F0EFE9;
     border: none;
     border-radius: 50%;
     width: 32px;
@@ -189,22 +204,24 @@
 }
 
 .close-btn:hover {
-    background: #d0d0d0;
+    background: #E0E0E0;
     transform: rotate(90deg);
 }
 
 /* 小八字展示 */
 .bazi-display-small {
-    background: white;
+    background: var(--color-cream-bg);
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
+    border: 1px solid var(--color-border-gold);
 }
 
 .bazi-display-small h4 {
     font-size: 16px;
-    color: #555;
+    color: var(--color-brown-dark);
     margin-bottom: 15px;
+    font-family: var(--font-heading);
 }
 
 .pillars-container-small {
@@ -227,6 +244,8 @@
 .zhi-small {
     font-size: 24px;
     font-weight: bold;
+    font-family: var(--font-heading);
+    color: var(--color-text);
 }
 
 /* 运势展示 */
@@ -234,12 +253,14 @@
     background: white;
     padding: 20px;
     border-radius: 12px;
+    border: 1px solid #EEE;
 }
 
 .fortune-display h4 {
     font-size: 16px;
     color: #555;
     margin-bottom: 15px;
+    font-family: var(--font-heading);
 }
 
 .fortune-info {
@@ -253,29 +274,34 @@
     font-weight: 600;
     font-size: 14px;
     margin-bottom: 10px;
+    font-family: var(--font-heading);
 }
 
 .fortune-badge.ji {
-    background: #d4edda;
-    color: #155724;
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 1px solid #C8E6C9;
 }
 
 .fortune-badge.ping {
-    background: #fff3cd;
-    color: #856404;
+    background: #FFF8E1;
+    color: #F57F17;
+    border: 1px solid #FFE082;
 }
 
 .fortune-badge.xiong {
-    background: #f8d7da;
-    color: #721c24;
+    background: #EFEBE9;
+    color: #5D4037;
+    border: 1px solid #D7CCC8;
 }
 
 .mood-text {
-    color: #666;
+    color: #555;
     font-size: 15px;
     line-height: 1.8;
     white-space: pre-wrap;
     margin-top: 10px;
+    font-family: var(--font-body);
 }
 
 .no-record {
@@ -305,32 +331,29 @@
 
     .calendar-grid {
         gap: 2px;
-        /* 极小间距确保7列显示 */
     }
 
     .calendar-day {
         padding: 2px;
-        /* 极小内边距 */
         border: none;
-        /* 移除边框节省空间 */
         border-radius: 4px;
-        background: #f8f8f8;
+        background: #FDFDFD;
     }
 
     .calendar-day:hover {
-        background: #e8e8e8;
+        background: #F0EFE9;
         transform: none;
         box-shadow: none;
     }
 
     .calendar-day.today {
         border: 1px solid var(--color-primary);
-        /* 今天保留细边框 */
-        background: rgba(219, 39, 119, 0.1);
+        background: rgba(46, 78, 63, 0.05);
     }
 
     .calendar-day.has-record {
-        background: rgba(76, 175, 80, 0.1);
+        background: rgba(197, 164, 112, 0.15);
+        /* 加深一点 */
     }
 
     .day-number {

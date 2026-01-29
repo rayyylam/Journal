@@ -1,7 +1,7 @@
 {
-  "name": "八字日记",
-  "short_name": "八字日记",
-  "description": "记录每日八字与运势的个人日记应用",
+  "name": "元素日记",
+  "short_name": "元素日记",
+  "description": "记录每日元素与运势的个人日记应用",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FCF5F8",

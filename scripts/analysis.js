@@ -296,12 +296,12 @@ function generateInsight(analysis) {
   return `
     <div class="insight-section">
       <h3>💡 AI 分析提示</h3>
-      <p class="insight-description">已为您生成数据总结，您可以复制以下文字到 AI 软件（如 ChatGPT、Claude 等）配合您的具体八字进行深度分析：</p>
+      <p class="insight-description">已为您生成数据总结，您可以复制以下文字到 AI 软件（如 ChatGPT、Claude 等）配合您的具体元素进行深度分析：</p>
       <div class="copy-box">
         <div class="summary-text" id="summary-text">${summaryText}</div>
         <button class="copy-btn" onclick="copySummary()">📋 复制总结</button>
       </div>
-      <p class="copy-hint">💡 提示：复制后可以补充您的出生年月日时等信息，让 AI 为您提供更精准的八字分析建议。</p>
+      <p class="copy-hint">💡 提示：复制后可以补充您的出生年月日时等信息，让 AI 为您提供更精准的元素分析建议。</p>
     </div>
   `;
 }
@@ -416,7 +416,7 @@ function generateSummaryText(analysis) {
     lines.push('');
   }
 
-  lines.push('请根据以上数据和我的八字，帮我分析我的喜用神和忌神，并给出调理建议。');
+  lines.push('请根据以上数据和我的元素，帮我分析我的喜用神和忌神，并给出调理建议。');
 
   return lines.join('\n');
 }

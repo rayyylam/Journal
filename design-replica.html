@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字日记 - 风格复刻</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Palette extraction from image */
+            --r-color-primary-bg: #2E4E3F;
+            /* Deep Green Header */
+            --r-color-cream-bg: #F5F1E6;
+            /* Cream Section Bg */
+            --r-color-gold: #C5A470;
+            /* Gold/Khaki Accents */
+            --r-color-text-dark: #333333;
+            --r-color-text-brown: #5C4033;
+            /* Dark Brown for titles */
+            --r-color-active-btn: #D6BD8C;
+            /* Nav Active Background */
+            --r-color-green-text: #2c523e;
+            --r-color-brown-text: #8B5A2B;
+            --r-color-teal-text: #1C4F4F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Serif SC", serif;
+            /* Serif font matches the vibe */
+            background-color: #F8F8F8;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 375px;
+            /* Mobile width */
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* HEADER */
+        .header {
+            background-color: var(--r-color-primary-bg);
+            padding: 40px 20px 20px;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 20px;
+            /* Slight rounding maybe? image cuts off */
+            /* Image shows square top, but maybe rounded bottom header? No, looks like a card */
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 2px;
+        }
+
+        .header-icon {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid white;
+            border-radius: 2px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 15px;
+        }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .nav-item.active {
+            background-color: #B0986C;
+            /* Gold-ish pill */
+            color: white;
+            font-weight: 500;
+        }
+
+        /* BAZI SECTION */
+        .bazi-section {
+            background-color: var(--r-color-cream-bg);
+            padding: 30px 20px 40px;
+            text-align: center;
+        }
+
+        .section-title-small {
+            color: #8D5A34;
+            /* Brownish gold */
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .pillars-grid {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            /* Handled by dividers */
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .pillar-col {
+            padding: 0 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Vertical dividers */
+        .pillar-col:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background-color: rgba(139, 90, 43, 0.2);
+        }
+
+        .pillar-label {
+            font-size: 14px;
+            color: #8D7A60;
+            margin-bottom: 15px;
+        }
+
+        .pillar-char {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: "Noto Serif SC", serif;
+        }
+
+        /* Column Specific Colors */
+        .pillar-col:nth-child(1) .pillar-char {
+            color: #1E4435;
+        }
+
+        /* Green/Teal */
+        .pillar-col:nth-child(2) .pillar-char {
+            color: #8B5A2B;
+        }
+
+        /* Brown */
+        .pillar-col:nth-child(3) .pillar-char {
+            color: #1C4F4F;
+        }
+
+        /* Teal/Blue */
+
+        .date-display {
+            color: #8D7A60;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* CONTENT AREA */
+        .content-area {
+            padding: 30px 20px;
+            background: white;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            margin-top: -15px;
+            /* Overlap effect if desired, but image looks flat */
+            /* Image shows white background starts after Bazi. layout seems flat */
+        }
+
+        .section-header {
+            color: #5C2E2E;
+            /* Reddish Brown */
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* FORTUNE BUTTONS */
+        .fortune-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .fortune-btn {
+            flex: 1;
+            aspect-ratio: 1;
+            border: 1px solid var(--r-color-gold);
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #5C4033;
+        }
+
+        .fortune-icon {
+            font-size: 24px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--r-color-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--r-color-gold);
+            font-weight: bold;
+        }
+
+        .fortune-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Active State */
+        .fortune-btn.active {
+            background-color: var(--r-color-primary-bg);
+            /* Dark Green */
+            border-color: var(--r-color-primary-bg);
+            color: var(--r-color-gold);
+        }
+
+        .fortune-btn.active .fortune-icon {
+            border-color: var(--r-color-gold);
+            color: var(--r-color-gold);
+        }
+
+        /* MOOD RECORD */
+        .mood-box {
+            border: 1px solid var(--r-color-gold);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 150px;
+            color: #666;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-frame">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-title">
+                <span style="border: 1px solid white; padding: 2px 4px; border-radius: 2px; font-size: 12px;">📓</span>
+                八字日记
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-item active">记录</a>
+                <a href="#" class="nav-item">日历</a>
+                <a href="#" class="nav-item">统计</a>
+                <a href="#" class="nav-item">调心</a>
+            </nav>
+        </header>
+
+        <!-- BAZI -->
+        <section class="bazi-section">
+            <h3 class="section-title-small">今日八字</h3>
+            <div class="pillars-grid">
+                <!-- Year -->
+                <div class="pillar-col">
+                    <div class="pillar-label">年柱</div>
+                    <div class="pillar-char">乙</div>
+                    <div class="pillar-char">巳</div>
+                </div>
+                <!-- Month -->
+                <div class="pillar-col">
+                    <div class="pillar-label">月柱</div>
+                    <div class="pillar-char">己</div>
+                    <div class="pillar-char">丑</div>
+                </div>
+                <!-- Day -->
+                <div class="pillar-col">
+                    <div class="pillar-label">日柱</div>
+                    <div class="pillar-char">癸</div>
+                    <div class="pillar-char">卯</div>
+                </div>
+            </div>
+            <div class="date-display">2026年1月29日</div>
+        </section>
+
+        <!-- CONTENT -->
+        <div class="content-area">
+            <h3 class="section-header">今日运势</h3>
+            <div class="fortune-row">
+                <div class="fortune-btn">
+                    <div class="fortune-icon">◡</div>
+                    <span class="fortune-label">吉</span>
+                </div>
+                <div class="fortune-btn active">
+                    <div class="fortune-icon">—</div>
+                    <span class="fortune-label">平</span>
+                </div>
+                <div class="fortune-btn">
+                    <div class="fortune-icon">◠</div>
+                    <span class="fortune-label">凶</span>
+                </div>
+            </div>
+
+            <h3 class="section-header" style="color: #2E4E3F;">心情记录</h3>
+            <div class="mood-box">
+                写下今天的心情和感悟...
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
