@@ -256,7 +256,8 @@
     border: 1px solid #EEE;
 }
 
-.fortune-display h4 {
+.fortune-display>h4,
+.fortune-header h4 {
     font-size: 16px;
     color: #555;
     margin-bottom: 15px;
@@ -325,23 +326,28 @@
 
 /* 编辑按钮 - 小图标样式 */
 .edit-date-btn {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     gap: 4px;
-    padding: 4px 8px;
-    background: none;
+    padding: 4px 8px !important;
+    margin: 0 !important;
+    width: auto !important;
+    background: none !important;
     border: none;
-    color: #666;
-    font-size: 13px;
+    color: #666 !important;
+    font-size: 13px !important;
+    font-weight: normal !important;
     cursor: pointer;
     transition: all 0.2s;
     font-family: var(--font-body);
     border-radius: 4px;
+    box-shadow: none !important;
 }
 
 .edit-date-btn:hover {
-    background: rgba(46, 78, 63, 0.1);
-    color: var(--color-primary);
+    background: rgba(46, 78, 63, 0.1) !important;
+    color: var(--color-primary) !important;
+    transform: none !important;
 }
 
 .edit-date-btn svg {
@@ -349,7 +355,7 @@
 }
 
 .edit-date-btn:active {
-    transform: scale(0.95);
+    transform: scale(0.95) !important;
 }
 
 /* 响应式设计 */
