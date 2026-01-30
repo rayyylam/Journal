@@ -1,5 +1,65 @@
+/**
+ * 从 URL 参数获取日期，如果没有则返回今天
+ */
+function getDateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get('date');
+
+    if (dateParam) {
+        // 验证日期格式
+        const date = new Date(dateParam);
+        if (!isNaN(date.getTime())) {
+            return dateParam;
+        }
+    }
+
+    // 默认返回今天
+    return new Date().toISOString().split('T')[0];
+}
+
+/**
+ * 检查是否从日历页面跳转而来
+ */
+function isFromCalendar() {
+    return new URLSearchParams(window.location.search).has('date');
+}
+
+/**
+ * 显示或隐藏返回日历按钮
+ */
+function toggleBackButton() {
+    const backButton = document.getElementById('back-to-calendar');
+    if (backButton) {
+        if (isFromCalendar()) {
+            backButton.style.display = 'block';
+        } else {
+            backButton.style.display = 'none';
+        }
+    }
+}
+
+/**
+ * 更新页面标题显示日期
+ */
+function updatePageTitle(dateStr) {
+    const titleElement = document.querySelector('.today-title');
+    if (titleElement && dateStr !== new Date().toISOString().split('T')[0]) {
+        const [year, month, day] = dateStr.split('-');
+        titleElement.textContent = `${year}年${parseInt(month)}月${parseInt(day)}日`;
+    }
+}
+
 // 等待 DOM 加载完成
 document.addEventListener('DOMContentLoaded', async function () {
+    // 设置当前日期（从 URL 或默认今天）
+    window.currentDate = getDateFromURL();
+
+    // 显示/隐藏返回按钮
+    toggleBackButton();
+
+    // 更新页面标题
+    updatePageTitle(window.currentDate);
+
     const moodNote = document.getElementById('mood-note');
     const charCount = document.getElementById('char-count');
     const saveBtn = document.getElementById('save-btn');
@@ -7,6 +67,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const fortuneOptions = document.querySelectorAll('.fortune-option');
 
     let selectedFortune = null;
+
 
     // 字数统计
     moodNote.addEventListener('input', function () {

@@ -2,6 +2,7 @@
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth(); // 0-11
 let allRecords = {}; // 存储所有记录，key 为日期字符串
+let currentSelectedDate = null; // 当前选中的日期
 
 // 确保 waitForSupabase 函数存在（回退实现）
 if (!window.waitForSupabase) {
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     document.getElementById('prev-month').addEventListener('click', () => changeMonth(-1));
     document.getElementById('next-month').addEventListener('click', () => changeMonth(1));
     document.getElementById('close-detail').addEventListener('click', closeDetail);
+    document.getElementById('edit-date-btn').addEventListener('click', editCurrentDate);
 
     // 加载当前月份
     await loadMonth(currentYear, currentMonth);
@@ -223,6 +225,9 @@ function createDayElement(day, isOtherMonth, record, isToday = false, dateStr = 
 function showDetail(dateStr, bazi, record) {
     const detailSection = document.getElementById('date-detail');
 
+    // 记录当前选中的日期
+    currentSelectedDate = dateStr;
+
     // 解析日期字符串
     const [year, month, day] = dateStr.split('-').map(Number);
     document.getElementById('detail-date').textContent = `${year}年${month}月${day}日`;
@@ -280,4 +285,15 @@ function showDetail(dateStr, bazi, record) {
  */
 function closeDetail() {
     document.getElementById('date-detail').style.display = 'none';
+    currentSelectedDate = null;
+}
+
+/**
+ * 编辑当前选中的日期
+ */
+function editCurrentDate() {
+    if (currentSelectedDate) {
+        // 跳转到主页，携带日期参数
+        window.location.href = `index.html?date=${currentSelectedDate}`;
+    }
 }

@@ -311,6 +311,32 @@
     padding: 20px 0;
 }
 
+/* 编辑按钮 */
+.edit-date-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+}
+
+.edit-date-btn:hover {
+    background: #3A6351;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(46, 78, 63, 0.2);
+}
+
+.edit-date-btn:active {
+    transform: translateY(0);
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .calendar-nav {
