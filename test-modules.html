@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模块测试</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+        }
+
+        .pass {
+            border-color: #4CAF50;
+            background: #f1f8f4;
+        }
+
+        .fail {
+            border-color: #F44336;
+            background: #fef1f0;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>代码优化模块测试</h1>
+    <div id="test-results"></div>
+
+    <script src="scripts/constants.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js"></script>
+
+    <script>
+        const results = [];
+
+        function test(name, condition) {
+            const status = condition ? 'PASS' : 'FAIL';
+            results.push({ name, status, condition });
+            return condition;
+        }
+
+        // 测试常量是否正确加载
+        test('WUXING_COLORS 已定义', typeof window.WUXING_COLORS === 'object');
+        test('TIANGAN_WUXING 已定义', typeof window.TIANGAN_WUXING === 'object');
+        test('DIZHI_WUXING 已定义', typeof window.DIZHI_WUXING === 'object');
+        test('TIANGAN 已定义', Array.isArray(window.TIANGAN));
+        test('DIZHI 已定义', Array.isArray(window.DIZHI));
+        test('WUXING_LIST 已定义', Array.isArray(window.WUXING_LIST));
+
+        // 测试常量内容
+        test('WUXING_COLORS 有5个五行', Object.keys(window.WUXING_COLORS).length === 5);
+        test('TIANGAN 有10个天干', window.TIANGAN.length === 10);
+        test('DIZHI 有12个地支', window.DIZHI.length === 12);
+        test('WUXING_LIST 有5个五行', window.WUXING_LIST.length === 5);
+
+        // 测试工具函数是否正确加载
+        test('getWuxing 函数已定义', typeof window.getWuxing === 'function');
+        test('getWuxingColor 函数已定义', typeof window.getWuxingColor === 'function');
+        test('calculateBazi 函数已定义', typeof window.calculateBazi === 'function');
+
+        // 测试函数功能
+        test('getWuxing("甲") 返回 "木"', window.getWuxing('甲') === '木');
+        test('getWuxing("子") 返回 "水"', window.getWuxing('子') === '水');
+        test('getWuxingColor("甲") 返回颜色', window.getWuxingColor('甲') === '#4CAF50');
+
+        // 测试 calculateBazi 函数
+        if (window.Lunar) {
+            const testDate = new Date(2026, 0, 28); // 2026年1月28日
+            const bazi = window.calculateBazi(testDate);
+            test('calculateBazi 返回对象', typeof bazi === 'object');
+            test('calculateBazi 包含年柱', bazi.year && bazi.year.gan && bazi.year.zhi);
+            test('calculateBazi 包含月柱', bazi.month && bazi.month.gan && bazi.month.zhi);
+            test('calculateBazi 包含日柱', bazi.day && bazi.day.gan && bazi.day.zhi);
+        }
+
+        // 显示结果
+        const resultsDiv = document.getElementById('test-results');
+        let html = '<h2>测试结果</h2>';
+
+        const passed = results.filter(r => r.status === 'PASS').length;
+        const failed = results.filter(r => r.status === 'FAIL').length;
+
+        html += `<p><strong>总计:</strong> ${results.length} 项测试, ${passed} 通过, ${failed} 失败</p>`;
+
+        results.forEach(({ name, status }) => {
+            html += `<div class="test-item ${status === 'PASS' ? 'pass' : 'fail'}">`;
+            html += `<strong>${status}</strong>: ${name}`;
+            html += `</div>`;
+        });
+
+        // 输出关键常量和函数示例
+        html += '<h2>常量示例</h2>';
+        html += '<pre>' + JSON.stringify({
+            WUXING_COLORS: window.WUXING_COLORS,
+            TIANGAN: window.TIANGAN,
+            DIZHI: window.DIZHI,
+            WUXING_LIST: window.WUXING_LIST
+        }, null, 2) + '</pre>';
+
+        resultsDiv.innerHTML = html;
+
+        // 输出到控制台
+        console.log('=== 模块测试结果 ===');
+        console.log(`总计: ${results.length}, 通过: ${passed}, 失败: ${failed}`);
+        results.forEach(({ name, status }) => {
+            console.log(`${status}: ${name}`);
+        });
+    </script>
+</body>
+
+</html>

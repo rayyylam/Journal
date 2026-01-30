@@ -1,28 +1,8 @@
-// 导入天干地支五行映射（从 calendar.js）
-const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-const WUXING_LIST = ['木', '火', '土', '金', '水'];
+/**
+ * 月度运势统计分析模块
+ * 依赖 constants.js、utils.js 和 supabase.js
+ */
 
-// 确保 waitForSupabase 函数存在（回退实现）
-if (!window.waitForSupabase) {
-  window.waitForSupabase = function () {
-    return new Promise((resolve) => {
-      if (window.supabaseClient) {
-        resolve();
-      } else {
-        // 轮询检查，最多等待 5 秒
-        let attempts = 0;
-        const checkInterval = setInterval(() => {
-          attempts++;
-          if (window.supabaseClient || attempts > 50) {
-            clearInterval(checkInterval);
-            resolve();
-          }
-        }, 100);
-      }
-    });
-  };
-}
 
 document.addEventListener('DOMContentLoaded', function () {
   const monthInput = document.getElementById('month-input');
@@ -106,15 +86,15 @@ function analyzeData(records) {
   };
 
   // 初始化统计对象
-  TIANGAN.forEach(gan => {
+  window.TIANGAN.forEach(gan => {
     analysis.tianganStats['吉'][gan] = 0;
     analysis.tianganStats['凶'][gan] = 0;
   });
-  DIZHI.forEach(zhi => {
+  window.DIZHI.forEach(zhi => {
     analysis.dizhiStats['吉'][zhi] = 0;
     analysis.dizhiStats['凶'][zhi] = 0;
   });
-  WUXING_LIST.forEach(wx => {
+  window.WUXING_LIST.forEach(wx => {
     analysis.wuxingStats['吉'][wx] = 0;
     analysis.wuxingStats['凶'][wx] = 0;
   });
@@ -201,12 +181,12 @@ function displayAnalysisResults(year, month, totalRecords, analysis) {
       ${renderPillarStats('凶日的日柱', analysis.fortunePillars['凶'])}
       
       <!-- 天干统计 -->
-      ${renderStats('天干统计（吉日）', analysis.tianganStats['吉'], TIANGAN)}
-      ${renderStats('天干统计（凶日）', analysis.tianganStats['凶'], TIANGAN)}
+      ${renderStats('天干统计（吉日）', analysis.tianganStats['吉'], window.TIANGAN)}
+      ${renderStats('天干统计（凶日）', analysis.tianganStats['凶'], window.TIANGAN)}
       
       <!-- 地支统计 -->
-      ${renderStats('地支统计（吉日）', analysis.dizhiStats['吉'], DIZHI)}
-      ${renderStats('地支统计（凶日）', analysis.dizhiStats['凶'], DIZHI)}
+      ${renderStats('地支统计（吉日）', analysis.dizhiStats['吉'], window.DIZHI)}
+      ${renderStats('地支统计（凶日）', analysis.dizhiStats['凶'], window.DIZHI)}
       
       <!-- 五行统计 -->
       ${renderWuxingStats('五行统计（吉日）', analysis.wuxingStats['吉'])}
@@ -297,7 +277,7 @@ function renderStats(title, stats, list) {
  * 渲染五行统计
  */
 function renderWuxingStats(title, stats) {
-  const items = WUXING_LIST
+  const items = window.WUXING_LIST
     .map(wuxing => {
       const count = stats[wuxing] || 0;
       const color = window.WUXING_COLORS[wuxing];
@@ -480,13 +460,5 @@ function showResults(html) {
   document.getElementById('analysis-results').innerHTML = html;
 }
 
-// 导出 WUXING_COLORS 供使用
-if (!window.WUXING_COLORS) {
-  window.WUXING_COLORS = {
-    '金': '#D4AF37',
-    '木': '#4CAF50',
-    '水': '#2196F3',
-    '火': '#F44336',
-    '土': '#8B4513'
-  };
-}
+// 导出 copySummary 函数供 HTML 调用
+window.copySummary = copySummary;

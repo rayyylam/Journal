@@ -1,73 +1,8 @@
-// 五行颜色映射
-const WUXING_COLORS = {
-    '金': '#D4AF37',  // 金黄色
-    '木': '#4CAF50',  // 绿色
-    '水': '#2196F3',  // 蓝色
-    '火': '#F44336',  // 红色
-    '土': '#8B4513'   // 咖啡色
-};
-
-// 天干五行对照
-const TIANGAN_WUXING = {
-    '甲': '木', '乙': '木',
-    '丙': '火', '丁': '火',
-    '戊': '土', '己': '土',
-    '庚': '金', '辛': '金',
-    '壬': '水', '癸': '水'
-};
-
-// 地支五行对照
-const DIZHI_WUXING = {
-    '子': '水', '亥': '水',
-    '寅': '木', '卯': '木',
-    '巳': '火', '午': '火',
-    '申': '金', '酉': '金',
-    '辰': '土', '戌': '土', '丑': '土', '未': '土'
-};
-
 /**
- * 获取天干地支的五行
+ * 八字显示模块
+ * 依赖 constants.js 和 utils.js
  */
-function getWuxing(char) {
-    return TIANGAN_WUXING[char] || DIZHI_WUXING[char] || '';
-}
 
-/**
- * 获取五行对应的颜色
- */
-function getWuxingColor(char) {
-    const wuxing = getWuxing(char);
-    return WUXING_COLORS[wuxing] || '#333';
-}
-
-/**
- * 计算指定日期的八字（年月日三柱）
- */
-function calculateBazi(date) {
-    // 使用 lunar-javascript 库计算
-    const lunar = window.Lunar.fromDate(date);
-
-    // 获取年柱
-    const yearGanZhi = lunar.getYearInGanZhiExact();
-    const yearGan = yearGanZhi.charAt(0);
-    const yearZhi = yearGanZhi.charAt(1);
-
-    // 获取月柱
-    const monthGanZhi = lunar.getMonthInGanZhiExact();
-    const monthGan = monthGanZhi.charAt(0);
-    const monthZhi = monthGanZhi.charAt(1);
-
-    // 获取日柱
-    const dayGanZhi = lunar.getDayInGanZhi();
-    const dayGan = dayGanZhi.charAt(0);
-    const dayZhi = dayGanZhi.charAt(1);
-
-    return {
-        year: { gan: yearGan, zhi: yearZhi, full: yearGanZhi },
-        month: { gan: monthGan, zhi: monthZhi, full: monthGanZhi },
-        day: { gan: dayGan, zhi: dayZhi, full: dayGanZhi }
-    };
-}
 
 /**
  * 显示指定日期的八字
@@ -126,8 +61,5 @@ if (document.readyState === 'loading') {
     displayTodayBazi();
 }
 
-// 导出函数供其他模块使用
-window.calculateBazi = calculateBazi;
-window.getWuxingColor = getWuxingColor;
-window.getWuxing = getWuxing;
+// displayTodayBazi 也导出为全局函数
 window.displayTodayBazi = displayTodayBazi;
