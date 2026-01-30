@@ -70,43 +70,53 @@ function calculateBazi(date) {
 }
 
 /**
- * 显示今日八字
+ * 显示指定日期的八字
+ * @param {Date|String} date - 可选，要显示的日期，默认为今天
  */
-function displayTodayBazi() {
-    const today = new Date();
-    const bazi = calculateBazi(today);
+function displayTodayBazi(date) {
+    const targetDate = date ? (typeof date === 'string' ? new Date(date) : date) : new Date();
+    const bazi = calculateBazi(targetDate);
 
     // 更新年柱
     const yearGan = document.getElementById('year-gan');
     const yearZhi = document.getElementById('year-zhi');
-    yearGan.textContent = bazi.year.gan;
-    yearGan.style.color = getWuxingColor(bazi.year.gan);
-    yearZhi.textContent = bazi.year.zhi;
-    yearZhi.style.color = getWuxingColor(bazi.year.zhi);
+    if (yearGan && yearZhi) {
+        yearGan.textContent = bazi.year.gan;
+        yearGan.style.color = getWuxingColor(bazi.year.gan);
+        yearZhi.textContent = bazi.year.zhi;
+        yearZhi.style.color = getWuxingColor(bazi.year.zhi);
+    }
 
     // 更新月柱
     const monthGan = document.getElementById('month-gan');
     const monthZhi = document.getElementById('month-zhi');
-    monthGan.textContent = bazi.month.gan;
-    monthGan.style.color = getWuxingColor(bazi.month.gan);
-    monthZhi.textContent = bazi.month.zhi;
-    monthZhi.style.color = getWuxingColor(bazi.month.zhi);
+    if (monthGan && monthZhi) {
+        monthGan.textContent = bazi.month.gan;
+        monthGan.style.color = getWuxingColor(bazi.month.gan);
+        monthZhi.textContent = bazi.month.zhi;
+        monthZhi.style.color = getWuxingColor(bazi.month.zhi);
+    }
 
     // 更新日柱
     const dayGan = document.getElementById('day-gan');
     const dayZhi = document.getElementById('day-zhi');
-    dayGan.textContent = bazi.day.gan;
-    dayGan.style.color = getWuxingColor(bazi.day.gan);
-    dayZhi.textContent = bazi.day.zhi;
-    dayZhi.style.color = getWuxingColor(bazi.day.zhi);
+    if (dayGan && dayZhi) {
+        dayGan.textContent = bazi.day.gan;
+        dayGan.style.color = getWuxingColor(bazi.day.gan);
+        dayZhi.textContent = bazi.day.zhi;
+        dayZhi.style.color = getWuxingColor(bazi.day.zhi);
+    }
 
     // 更新日期显示
-    const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-    document.getElementById('current-date').textContent = dateStr;
+    const dateStr = `${targetDate.getFullYear()}年${targetDate.getMonth() + 1}月${targetDate.getDate()}日`;
+    const currentDateElem = document.getElementById('current-date');
+    if (currentDateElem) {
+        currentDateElem.textContent = dateStr;
+    }
 
     // 将八字数据存储到全局，供其他模块使用
     window.currentBazi = bazi;
-    window.currentDate = today.toISOString().split('T')[0]; // YYYY-MM-DD 格式
+    window.currentDate = targetDate.toISOString().split('T')[0]; // YYYY-MM-DD 格式
 }
 
 // 页面加载完成后显示今日八字
@@ -120,3 +130,4 @@ if (document.readyState === 'loading') {
 window.calculateBazi = calculateBazi;
 window.getWuxingColor = getWuxingColor;
 window.getWuxing = getWuxing;
+window.displayTodayBazi = displayTodayBazi;

@@ -39,13 +39,12 @@ function toggleBackButton() {
 }
 
 /**
- * 更新页面标题显示日期
+ * 更新页面显示的八字和日期
  */
-function updatePageTitle(dateStr) {
-    const titleElement = document.querySelector('.today-title');
-    if (titleElement && dateStr !== new Date().toISOString().split('T')[0]) {
-        const [year, month, day] = dateStr.split('-');
-        titleElement.textContent = `${year}年${parseInt(month)}月${parseInt(day)}日`;
+function updatePageDisplay(dateStr) {
+    // 调用 calendar.js 中的函数显示八字
+    if (window.displayTodayBazi) {
+        window.displayTodayBazi(dateStr);
     }
 }
 
@@ -57,8 +56,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // 显示/隐藏返回按钮
     toggleBackButton();
 
-    // 更新页面标题
-    updatePageTitle(window.currentDate);
+    // 更新页面显示（八字和日期）
+    updatePageDisplay(window.currentDate);
 
     const moodNote = document.getElementById('mood-note');
     const charCount = document.getElementById('char-count');
