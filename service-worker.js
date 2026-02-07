@@ -1,5 +1,5 @@
 // Service Worker 版本
-const CACHE_NAME = 'bazi-journal-v1';
+const CACHE_NAME = 'bazi-journal-v2';
 const urlsToCache = [
     '/',
     '/index.html',
@@ -8,6 +8,7 @@ const urlsToCache = [
     '/divination.html',
     '/styles/main.css',
     '/styles/calendar.css',
+    '/styles/pwa-native.css',
     '/scripts/bazi.js',
     '/scripts/journal.js',
     '/scripts/calendar-view.js',

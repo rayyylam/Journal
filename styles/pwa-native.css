@@ -1,0 +1,207 @@
+/* ===== PWA 原生化样式 ===== */
+
+/* ===== 1. 禁用浏览器默认手势 ===== */
+html {
+  /* 禁止下拉刷新回弹效果 */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  
+  /* 禁止双指缩放 */
+  touch-action: manipulation;
+}
+
+body {
+  /* 禁止文本选择（更像原生App） */
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* 禁止触摸高亮 */
+  -webkit-tap-highlight-color: transparent;
+  
+  /* 禁止长按弹出菜单 */
+  -webkit-touch-callout: none;
+}
+
+/* 允许输入框和文本区域选择 */
+input, textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+/* 禁止图片长按保存 */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+
+/* ===== 2. iPhone 安全区适配 ===== */
+:root {
+  /* 安全区变量 */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  
+  /* 底部导航高度 */
+  --bottom-nav-height: 60px;
+}
+
+/* 页面主容器需要为底部导航留出空间 */
+.container {
+  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+}
+
+/* header 适配状态栏 */
+.header {
+  padding-top: calc(20px + var(--safe-area-top));
+}
+
+
+/* ===== 3. 底部 Tab 导航栏 ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+  padding-bottom: var(--safe-area-bottom);
+  background: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 0;
+  color: #999;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  height: var(--bottom-nav-height);
+}
+
+.bottom-nav-item svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bottom-nav-item span {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bottom-nav-item.active {
+  color: #2E4E3F;
+}
+
+.bottom-nav-item:active {
+  opacity: 0.7;
+}
+
+
+/* ===== 4. 页面切换过渡动画 ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 页面进入动画 */
+.container {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 卡片区块进入动画 */
+.bazi-display,
+.fortune-record,
+.calendar-grid-section,
+.analysis-results,
+.divination-main {
+  animation: slideInRight 0.4s ease-out;
+  animation-fill-mode: both;
+}
+
+.fortune-record {
+  animation-delay: 0.1s;
+}
+
+
+/* ===== 5. 隐藏顶部导航 (移动端) ===== */
+@media (max-width: 768px) {
+  /* 隐藏顶部导航 */
+  .header nav {
+    display: none !important;
+  }
+  
+  /* 调整头部样式 - 只保留标题 */
+  .header {
+    padding-bottom: 15px;
+  }
+  
+  .header h1 {
+    margin-bottom: 0;
+  }
+}
+
+
+/* ===== 桌面端保持原有导航 ===== */
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none;
+  }
+  
+  .container {
+    padding-bottom: 0;
+  }
+}
+
+
+/* ===== PWA 启动画面优化 ===== */
+@media (display-mode: standalone) {
+  /* 全屏模式下的额外优化 */
+  body {
+    /* 防止页面滚动越界 */
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .container {
+    height: 100vh;
+    height: 100dvh; /* 动态视口高度 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
