@@ -740,18 +740,27 @@ body {
   }
 
   .month-selector label {
-    text-align: left;
+    text-align: center;
     margin-bottom: 10px;
+    display: block;
+    width: 100%;
   }
 
   #month-input {
     width: 100%;
     box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+    min-width: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #fff;
+    /* Ensure it's white */
   }
 
   .analyze-btn {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 }
 
